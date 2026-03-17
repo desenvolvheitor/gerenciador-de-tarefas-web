@@ -56,8 +56,4 @@ Este projeto leva a inclusão a sério:
 
 -----
 
-### 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://www.google.com/search?q=LICENSE) para mais detalhes.
-
-**Desenvolvido com ❤️ por [Heitor Sales](https://www.google.com/search?q=https://github.com/desenvolvheitor).**
+**Desenvolvido com ❤️ por [Heitor Sales](https://github.com/desenvolvheitor).**
