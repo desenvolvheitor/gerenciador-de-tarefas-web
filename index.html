@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="marca">
+            <img src="images/icon.png" class="logo">
+            <h1 class="titulo-pagina">Tarefas</h1>
+        </div>
+        <button class="botao-nova-tarefa"><span>+ </span>Nova Tarefa</button>
+    </header>
+
+    <main>
+        <div class="filtro-status">
+            <button class="botao-filtro" data-text="Todas"  data-filtro="Todas">Todas</button>
+            <button class="botao-filtro" data-text="A fazer" data-filtro="A fazer">A fazer</button>
+            <button class="botao-filtro" data-text="Fazendo" data-filtro="Fazendo">Fazendo</button>
+            <button class="botao-filtro" data-text="Feita" data-filtro="Feita">Feita</button>
+        </div>
+
+        <section class="lista-tarefas"></section>
+    </main>
+
+    <footer style="height: 100px; border-top: 1px solid color-mix(in srgb, var(--cor-principal), black 16%);; padding: 20px; display: flex; justify-content: center; align-items: center;">
+        <p style="text-align: center;">© 2026 Heitor Sales. Todos os direitos reservados.</p>
+    </footer>
+
+    <dialog class="modal-nova-tarefa">
+        <h3 class="titulo-modal">Nova Tarefa</h3>
+        <form class="form-tarefa">
+            <label for="titulo">Título <span class="campo-obrigatorio">*</span></label>
+            <input type="text" name="titulo" id="titulo" placeholder="Ex: Montar a aula da mocidade" required>
+            <label for="estimativa">Estimativa de Conclusão</label>
+            <input type="date" name="estimativa" id="estimativa">
+            <label for="descricao">Descrição</label>
+            <input type="text" name="descricao" id="descricao" placeholder="Detalhes opcionais sobre a tarefa...">
+            <label for="selecionar-status">Status</label>
+            <div class="selecionar-status">
+                <button class="botao-status" type="button" data-text="A fazer">A fazer</button>
+                <button class="botao-status" type="button" data-text="Fazendo">Fazendo</button>
+                <button class="botao-status" type="button" data-text="Feita">Feita</button>
+            </div>
+            <div class="botoes-nova-tarefa">
+                <button class="botao-cancelar-tarefa" type="reset">Cancelar</button>
+                <button class="botao-salvar-tarefa" type="submit">Criar Tarefa</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js" defer></script>
+</body>
+
+</html>
