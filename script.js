@@ -163,10 +163,11 @@ function renderizarTarefas() {
                 </div>`;
     } else {
         document.querySelector(".lista-tarefas").innerHTML = `<button class="excluir-todas" onclick="removerTodasAsTarefas()">🗑️ Excluir todas</button>`
+        let htmlFinal = "";
         listaTarefas.forEach((tarefa, indice) => {
             let cardHTML = "";
             if (tarefa.status == botaoFiltroAtivo().getAttribute("data-filtro") || botaoFiltroAtivo().getAttribute("data-filtro") == "Todas") {
-                cardHTML = `<div class="tarefa-lista">
+                cardHTML = `<div class="tarefa-lista" style="animation-delay: ${indice * 0.1}s">
                         <div class="conteudo-tarefa-lista">
                         <div class="infos-tarefa-lista">
                         <h4>${tarefa.titulo}</h4>`
@@ -195,8 +196,9 @@ function renderizarTarefas() {
                 </div>
                 </div>`
             }
-            document.querySelector(".lista-tarefas").innerHTML += cardHTML 
+            htmlFinal += cardHTML;
         })
+        document.querySelector(".lista-tarefas").innerHTML += htmlFinal
     }   
 }
 
