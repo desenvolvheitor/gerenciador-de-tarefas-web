@@ -59,6 +59,7 @@ header,main, footer {
     border-radius: 10px;
     transition: background-color 0.2s ease;
     text-wrap: nowrap;
+    cursor: pointer;
 }
 
 .botao-nova-tarefa:hover {
@@ -89,6 +90,7 @@ main {
     color: #8a8075;
     text-wrap: nowrap;
     transition: color, font-weight 0.2s ease;
+    cursor: pointer;
 }
 
 .botao-filtro::after {
@@ -250,6 +252,7 @@ main {
     border: none;
     padding: 10px;
     color: #8a8075;
+    cursor: pointer;
 }
 
 .botao-status::after {
@@ -282,6 +285,7 @@ main {
 .botao-salvar-tarefa, .botao-cancelar-tarefa {
     padding: 10px 16px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .botao-salvar-tarefa {
@@ -289,7 +293,6 @@ main {
     color: white;
     border: none;
     transition: background-color 0.2s ease;
-
 }
 
 .botao-salvar-tarefa:hover {
