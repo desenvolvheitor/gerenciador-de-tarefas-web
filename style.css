@@ -30,9 +30,8 @@ header {
     border-bottom: 1px solid color-mix(in srgb, var(--cor-principal), black 16%);
 }
 
-header,
-main {
-    padding: 2vh 28vw;
+header,main, footer {
+    padding: 2vh clamp(10px, 8%, 28vw);
 }
 
 .marca {
@@ -77,16 +76,17 @@ main {
     justify-content: space-between;
     background-color: color-mix(in srgb, var(--cor-principal), black 4%);
     border-radius: 10px;
-    padding: 8px;
+    padding: clamp(6px, 1%, 8px);
     width: fit-content;
     margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
 .botao-filtro {
     border-radius: 10px;
     background-color: inherit;
     border: none;
-    padding: 10px 20px;
+    padding: 10px clamp(8px, 2%, 20px);
     color: #8a8075;
     text-wrap: nowrap;
     transition: color, font-weight 0.2s ease;
@@ -145,10 +145,30 @@ main {
     color: #f00;
 }
 
+@keyframes apareceModal {
+    from {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 20px));
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.modal-nova-tarefa[open] {
+    animation: apareceModal 0.4s ease-out forwards;
+}
+
 .modal-nova-tarefa {
-    width: 26%;
-    margin: auto;
-    padding: 30px 20px;
+    padding: clamp(10px, 10%, 36px) clamp(20px, 10%, 40px);
+    width: 80%;
+    min-width: 300px;
+    max-width: 450px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border: none;
     border-radius: 20px;
     background-color: var(--cor-principal);
@@ -236,8 +256,7 @@ main {
     gap: 14px;
 }
 
-.botao-salvar-tarefa,
-.botao-cancelar-tarefa {
+.botao-salvar-tarefa, .botao-cancelar-tarefa {
     padding: 10px 16px;
     border-radius: 10px;
 }
@@ -309,6 +328,7 @@ main {
     border-radius: 20px;
     height: fit-content;
     padding: 5px 10px;
+    text-wrap: nowrap;
 }
 
 .botoes-tarefa {
@@ -319,16 +339,18 @@ main {
 }
 
 .botoes-tarefa button {
-    border: none;
-    background: none;
     color: #898076;
     padding: 10px;
     border-radius: 10px;
-    transition: color, background-color 0.2s ease;
+    background-color: color-mix(in srgb, var(--cor-principal), black 2%);
+    border: 1px solid color-mix(in srgb, var(--cor-principal), black 8%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
 }
 
 .botoes-tarefa button:hover {
-    background-color: color-mix(in srgb, var(--cor-principal), black 10%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 #botao-editar:hover {
@@ -347,4 +369,11 @@ footer {
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+@media (max-width: 600px) {
+    .filtro-status {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
