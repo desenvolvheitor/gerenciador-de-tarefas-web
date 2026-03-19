@@ -202,14 +202,26 @@ function renderizarTarefas() {
 
 // Remover uma tarefa
 function removerTarefa(indice) {
-    listaTarefas.splice(indice, 1);
-    renderizarTarefas();
+    let confirmacaoExclusao = confirm(`Atenção! Deseja realmente excluir a tarefa "${listaTarefas[indice].titulo}"?`);
+    if (confirmacaoExclusao) {
+        listaTarefas.splice(indice, 1);
+        renderizarTarefas();
+    }
 }
 
 function removerTodasAsTarefas() {
-    tarefasFiltradas().forEach((tarefa, indice) => {
+    let confirmacaoExclusao = false;
+    if (botaoFiltroAtivo().getAttribute("data-filtro") == "Todas"){
+        confirmacaoExclusao = confirm("Atenção! Deseja realmente excluir todas as tarefas?");
+    } else {
+        confirmacaoExclusao = confirm(`Atenção! Deseja realmente excluir todas as tarefas que possuem o status "${botaoFiltroAtivo().getAttribute("data-filtro")}"?`)
+    }
+
+    if (confirmacaoExclusao) {
+        tarefasFiltradas().forEach((tarefa, indice) => {
             listaTarefas.splice(listaTarefas.indexOf(tarefa), 1)
-    })
+        })
+    }
     renderizarTarefas();
 }
 
