@@ -9,7 +9,6 @@
 * {
     margin: 0;
     padding: 0;
-    /* border: 0; */
     box-sizing: border-box;
 }
 
@@ -31,7 +30,7 @@ header {
 }
 
 header,main, footer {
-    padding: 2vh clamp(10px, 8%, 28vw);
+    padding: 2vh clamp(10px, 16%, 28vw);
 }
 
 .marca {
@@ -175,9 +174,20 @@ main {
     transition: background-color 0.2s ease;
 }
 
+@keyframes fundoModal {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
 .modal-nova-tarefa::backdrop {
     background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(4px);
+    animation: fundoModal 0.4s ease-out forwards;
 }
 
 .modal-nova-tarefa h3 {
@@ -321,6 +331,7 @@ main {
 
 .infos-tarefa-lista h4 {
     color: black;
+    font-size: 16pt;
 }
 
 .status-tarefa {
