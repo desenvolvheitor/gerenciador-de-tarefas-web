@@ -30,7 +30,7 @@ header {
 }
 
 header,main, footer {
-    padding: 2vh clamp(10px, 16%, 28vw);
+    padding: 2vh clamp(10px, 6%, 28vw);
 }
 
 .marca {
@@ -115,12 +115,12 @@ main {
 }
 
 @keyframes entradaSuaveCentralizada {
-    0% {
+    from {
         opacity: 0;
         transform: translate(-50%, calc(-50% + 15px));
     } 
     
-    100% {
+    to {
         opacity: 1;
         transform: translate(-50%, -50%);
     }
@@ -195,14 +195,9 @@ main {
 }
 
 @keyframes fundoModal {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
-
 
 .modal-nova-tarefa::backdrop {
     background-color: rgba(0, 0, 0, 0.4);
@@ -230,6 +225,7 @@ main {
 .modal-nova-tarefa input {
     margin-bottom: 16px;
     height: 30px;
+    width: 100%;
     background-color: #F5F3EF;
     border: none;
     outline: 1px solid #E2DFD9;
@@ -316,11 +312,11 @@ main {
 }
 
 @keyframes entradaSuave {
-    0% {
+    from {
         opacity: 0;
         transform: translateY(15px) scale(0.98);
     }
-    100% {
+    to {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
@@ -408,6 +404,41 @@ footer {
 footer p a {
     text-decoration: none;
     color: black;
+}
+
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999; /* Garante que fique acima de tudo */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(110%);
+        opacity: 0;
+    }
+    
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.toast {
+    background-color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 300px;
+    animation: slideIn 0.3s ease-out forwards;
 }
 
 @media (max-width: 600px) {
