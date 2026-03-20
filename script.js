@@ -30,15 +30,15 @@ botoesFiltro[0].classList.add("botao-filtro-ativo")
 
 renderizarTarefas();
 
-function botaoStatusAtivo(){
+function botaoStatusAtivo() {
     return modalNovaTarefa.querySelector(".botao-status-ativo");
 }
 
-function botaoFiltroAtivo(){
+function botaoFiltroAtivo() {
     return document.querySelector(".botao-filtro-ativo");
 }
 
-function tarefasFiltradas(){
+function tarefasFiltradas() {
     return listaTarefas.filter(tarefa => tarefa.status == botaoFiltroAtivo().getAttribute("data-filtro") || botaoFiltroAtivo().getAttribute("data-filtro") == "Todas");
 }
 
@@ -54,7 +54,7 @@ function exibirNotificacao(tipo, tituloTarefa = "", status = "") {
     let textoNotificacao = "";
     let iconeNotificacao = "";
 
-    switch(tipo) {
+    switch (tipo) {
         case "exclusaoIndividual":
             iconeNotificacao = "❌";
             tituloNotificacao = "Tarefa excluída";
@@ -80,7 +80,7 @@ function exibirNotificacao(tipo, tituloTarefa = "", status = "") {
             break;
 
         case "edicaoTarefa":
-            iconeNotificacao = "✏️"   
+            iconeNotificacao = "✏️"
             tituloNotificacao = "Tarefa editada";
             textoNotificacao = `A tarefa "${tituloTarefa}" foi atualizada com sucesso.`;
             break;
@@ -98,7 +98,7 @@ function exibirNotificacao(tipo, tituloTarefa = "", status = "") {
         <h4>${tituloNotificacao}</h4>
         <p style="font-size: 14px; color: #666;">${textoNotificacao}</p>
     </div>`;
-    
+
     container.appendChild(toast);
 
     setTimeout(() => {
@@ -121,7 +121,7 @@ botaoNovaTarefa.addEventListener("click", abrirModalNovaTarefa);
 
 const botaoCancelarTarefa = document.querySelector(".botao-cancelar-tarefa");
 function fecharModalNovaTarefa() {
-//Definição de variável para o status selecionado no filtro de status
+    //Definição de variável para o status selecionado no filtro de status
     if (botaoStatusAtivo() != null) {
         botaoStatusAtivo().classList.remove("botao-status-ativo");
     }
@@ -143,15 +143,15 @@ function salvarTarefa(e) {
     let titulo = document.querySelector("#titulo").value;
     let estimativa = document.querySelector("#estimativa").value;
     let descricao = document.querySelector("#descricao").value;
-    
+
     if (estimativa !== "") {
         const partes = estimativa.split("-");
         let dataSelecionada = new Date(partes[0], partes[1] - 1, partes[2]);
 
         let hoje = new Date();
         hoje.setHours(0, 0, 0, 0);
-                
-        if (dataSelecionada < hoje){
+
+        if (dataSelecionada < hoje) {
             campoData.setCustomValidity("A data de conclusão não pode ser anterior a hoje!")
             campoData.reportValidity();
             return;
@@ -161,15 +161,15 @@ function salvarTarefa(e) {
     let status = botaoStatusAtivo().innerText;
 
     if (estimativa != "") {
-    const partes = estimativa.split("-");
-    estimativa = new Date(partes[0], partes[1] - 1, partes[2]);
+        const partes = estimativa.split("-");
+        estimativa = new Date(partes[0], partes[1] - 1, partes[2]);
     } else {
         estimativa = null
     }
 
     let tipoSalvamento = "criacaoTarefa";
     let tituloTarefa;
-    
+
     if (indiceEdicao == null) {
         let t = new Tarefa(titulo, status, estimativa, descricao);
         listaTarefas.push(t);
@@ -182,7 +182,7 @@ function salvarTarefa(e) {
         tipoSalvamento = "edicaoTarefa";
         tituloTarefa = listaTarefas[indiceEdicao].titulo;
     }
-    
+
     renderizarTarefas();
     fecharModalNovaTarefa();
     exibirNotificacao(tipoSalvamento, tituloTarefa)
@@ -201,11 +201,11 @@ function atualizarTarefa(indice) {
     }
     listaTarefas[indice].dataAtualizacao = new Date();
     botoesStatus.forEach(botao => {
-        if (botao.innerText == listaTarefas[indice].status){
+        if (botao.innerText == listaTarefas[indice].status) {
             botao.classList.add("botao-status-ativo")
         }
     })
-        
+
     modalNovaTarefa.querySelector("#descricao").value = listaTarefas[indice].descricao;
 
     abrirModalNovaTarefa();
@@ -223,7 +223,7 @@ function renderizarTarefas() {
             quantidade = listaTarefas.filter(tarefa => tarefa.status == statusOriginal).length;
         }
 
-        let novoTexto  = `${statusOriginal} (${quantidade})`;
+        let novoTexto = `${statusOriginal} (${quantidade})`;
         botao.innerText = novoTexto;
         botao.setAttribute("data-text", novoTexto)
     })
@@ -232,8 +232,8 @@ function renderizarTarefas() {
     if (tarefasFiltradas().length < 1) {
         document.querySelector(".lista-tarefas").innerHTML = `<div class="nenhuma-tarefa">
                     <img src="/images/tarefa.png">
-                    <h2>Nenhuma tarefa por aqui!</h2>
-                    <p>Comece adicionando sua primeira tarefa usando o botão acima.</p>
+                    <h2 style="min-width: max-content;">Nenhuma tarefa por aqui!</h2>
+                    <p style="text-align: center;">Comece adicionando sua primeira tarefa usando o botão acima.</p>
                 </div>`;
     } else {
         document.querySelector(".lista-tarefas").innerHTML = `<button class="excluir-todas" onclick="removerTodasAsTarefas()">🗑️ Excluir todas</button>`
@@ -245,9 +245,9 @@ function renderizarTarefas() {
                         <div class="conteudo-tarefa-lista">
                         <div class="infos-tarefa-lista">
                         <h4>${tarefa.titulo}</h4>`
-                                    
+
                 if (tarefa.descricao != "") {
-                    cardHTML += `<p>☰ ${tarefa.descricao}</p>`
+                    cardHTML += `<p style="overflow-wrap: break-word">${tarefa.descricao}</p>`
                 }
 
                 cardHTML += `<p>Criada em: ${tarefa.dataCriacao.toLocaleDateString("pt-BR")}</p>`
@@ -255,7 +255,7 @@ function renderizarTarefas() {
                 if (tarefa.dataAtualizacao != null) {
                     cardHTML += `<p>Atualizada em: ${tarefa.dataAtualizacao.toLocaleDateString("pt-BR")}</p>`
                 }
-                
+
                 if (tarefa.dataEstimativa instanceof Date && !isNaN(tarefa.dataEstimativa)) {
                     let estimativaFormatada = tarefa.dataEstimativa.toLocaleDateString("pt-BR");
                     cardHTML += `<p>Previsão: ${estimativaFormatada}</p>`
@@ -273,7 +273,7 @@ function renderizarTarefas() {
             htmlFinal += cardHTML;
         })
         document.querySelector(".lista-tarefas").innerHTML += htmlFinal
-    }   
+    }
 }
 
 // Remover uma tarefa
@@ -291,7 +291,7 @@ function removerTodasAsTarefas() {
     let confirmacaoExclusao = false;
     let tipoExclusao;
 
-    if (botaoFiltroAtivo().getAttribute("data-filtro") == "Todas"){
+    if (botaoFiltroAtivo().getAttribute("data-filtro") == "Todas") {
         confirmacaoExclusao = confirm("Atenção! Deseja realmente excluir todas as tarefas?");
         tipoExclusao = "exclusaoGlobal";
     } else {

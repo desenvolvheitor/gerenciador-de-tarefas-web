@@ -18,7 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    min-width: 100vw;
+    min-width: 100%;
 }
 
 header {
@@ -70,6 +70,9 @@ header,main, footer {
 
 main {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .filtro-status {
@@ -114,29 +117,13 @@ main {
     color: white;
 }
 
-@keyframes entradaSuaveCentralizada {
-    from {
-        opacity: 0;
-        transform: translate(-50%, calc(-50% + 15px));
-    } 
-    
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-}
-
 .nenhuma-tarefa {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 10px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: entradaSuaveCentralizada 0.4s ease-out forwards;
+    text-align: center;
+    animation: entradaSuave 0.4s ease-out forwards;
 }
 
 .nenhuma-tarefa img {
@@ -322,6 +309,18 @@ main {
     }
 }
 
+.lista-tarefas {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: max-content;
+}
+
+.lista-tarefas:has(.nenhuma-tarefa) {
+    justify-content: center;
+    align-items: center;
+}
+
 .tarefa-lista {
     background-color: color-mix(in srgb, var(--cor-principal), black 4%);
     margin: 10px;
@@ -345,6 +344,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    min-width: 0;
+    flex: 1;
 }
 
 .infos-tarefa-lista h4 {
