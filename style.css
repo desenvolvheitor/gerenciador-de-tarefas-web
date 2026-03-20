@@ -446,4 +446,8 @@ footer p a {
         margin-left: auto;
         margin-right: auto;
     }
+
+    .toast-container {
+        display: none;
+    }
 }
