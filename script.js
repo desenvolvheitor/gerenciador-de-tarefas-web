@@ -1,32 +1,22 @@
 // Definição da classe tarefa
 class Tarefa {
-    constructor(titulo, status, dataEstimativa, descricao) {
+    constructor(titulo, status, dataEstimativa, descricao, dataCriacao = null, dataAtualizacao = null) {
         this.titulo = titulo.trim();
         this.status = status;
-        this.dataCriacao = new Date();
-        this.dataAtualizacao = null;
-        this.dataEstimativa = dataEstimativa;
+        this.dataEstimativa = dataEstimativa ? new Date(dataEstimativa) : null;
         this.descricao = descricao.trim();
+        this.dataCriacao = dataCriacao ? new Date(dataCriacao) : new Date();
+        this.dataAtualizacao = dataAtualizacao ? new Date(dataAtualizacao) : null;;
     }
 }
 
-// Criação da lista de tarefas
-let listaTarefas = [];
-
-// Definição de variável para a tarefa que será editada
+const dadosSalvos = localStorage.getItem("listaTarefas")
+let listaTarefas = dadosSalvos ? JSON.parse(dadosSalvos).map(t => new Tarefa(t.titulo, t.status, t.dataEstimativa, t.descricao, t.dataCriacao, t.dataAtualizacao, )) : []
 let indiceEdicao = null;
-
-// Definição de variável para o modal de nova tarefa 
 const modalNovaTarefa = document.querySelector(".modal-nova-tarefa");
-
-// Definição de variável para os botões de status
 const botoesStatus = document.querySelectorAll(".botao-status");
-
-// Definição de variável para os botões de filtro de status
 const botoesFiltro = document.querySelectorAll(".botao-filtro");
-
-// Definição do filtro de status como "Todas" por padrão ao carregar a página
-botoesFiltro[0].classList.add("botao-filtro-ativo")
+botoesFiltro[0].classList.add("botao-filtro-ativo");
 
 renderizarTarefas();
 
@@ -47,7 +37,7 @@ function exibirNotificacao(tipo, tituloTarefa = "", status = "") {
     if (!container) {
         container = document.createElement("div");
         container.className = "toast-container";
-        document.body.appendChild(container)
+        document.body.appendChild(container);
     }
 
     let tituloNotificacao = "";
@@ -213,6 +203,7 @@ function atualizarTarefa(indice) {
 
 //Renderizar tarefas
 function renderizarTarefas() {
+    localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas))
     botoesFiltro.forEach(botao => {
         const statusOriginal = botao.getAttribute("data-filtro");
 
@@ -239,6 +230,10 @@ function renderizarTarefas() {
         document.querySelector(".lista-tarefas").innerHTML = `<button class="excluir-todas" onclick="removerTodasAsTarefas()">🗑️ Excluir todas</button>`
         let htmlFinal = "";
         listaTarefas.forEach((tarefa, indice) => {
+            const dataCriacaoObj = tarefa.dataCriacao ? new Date(tarefa.dataCriacao) : null;
+            const dataAtualizacaoObj = tarefa.dataAtualizacao ? new Date(tarefa.dataAtualizacao) : null;
+            const dataEstimativaObj = tarefa.dataEstimativa ? new Date(tarefa.dataEstimativa) : null;
+
             let cardHTML = "";
             if (tarefa.status == botaoFiltroAtivo().getAttribute("data-filtro") || botaoFiltroAtivo().getAttribute("data-filtro") == "Todas") {
                 cardHTML = `<div class="tarefa-lista" style="animation-delay: ${indice * 0.1}s; border-left: 6px solid ${corDoStatus(indice)};">
@@ -250,15 +245,14 @@ function renderizarTarefas() {
                     cardHTML += `<p style="overflow-wrap: break-word">${tarefa.descricao}</p>`
                 }
 
-                cardHTML += `<p>Criada em: ${tarefa.dataCriacao.toLocaleDateString("pt-BR")}</p>`
+                cardHTML += `<p>Criada em: ${dataCriacaoObj.toLocaleDateString("pt-BR")}</p>`
 
-                if (tarefa.dataAtualizacao != null) {
-                    cardHTML += `<p>Atualizada em: ${tarefa.dataAtualizacao.toLocaleDateString("pt-BR")}</p>`
+                if (dataAtualizacaoObj && !isNaN(dataAtualizacaoObj.getTime())) {
+                    cardHTML += `<p>Atualizada em: ${dataAtualizacaoObj.toLocaleDateString("pt-BR")}</p>`
                 }
 
-                if (tarefa.dataEstimativa instanceof Date && !isNaN(tarefa.dataEstimativa)) {
-                    let estimativaFormatada = tarefa.dataEstimativa.toLocaleDateString("pt-BR");
-                    cardHTML += `<p>Previsão: ${estimativaFormatada}</p>`
+                if (dataEstimativaObj && !isNaN(dataEstimativaObj.getTime())) {
+                    cardHTML += `<p>Previsão: ${dataEstimativaObj.toLocaleDateString("pt-BR") }</p>`
                 }
 
                 cardHTML += `</div>
